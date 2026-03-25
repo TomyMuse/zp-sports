@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme {
+  --color-background: #0e0e0e;
+  --color-on-background: #ffffff;
+  --color-surface: #0e0e0e;
+  --color-on-surface: #ffffff;
+  --color-surface-variant: #262626;
+  --color-on-surface-variant: #adaaaa;
+  --color-surface-container-lowest: #000000;
+  --color-surface-container-low: #131313;
+  --color-surface-container: #1a1919;
+  --color-surface-container-high: #201f1f;
+  --color-surface-container-highest: #262626;
+  --color-surface-bright: #2c2c2c;
+  --color-primary: #98a9ff;
+  --color-on-primary: #002185;
+  --color-primary-fixed: #859aff;
+  --color-secondary: #caf300;
+  --color-on-secondary: #485800;
+  --color-secondary-fixed: #caf300;
+  --color-on-secondary-fixed: #374400;
+  --color-secondary-fixed-dim: #bde300;
+
+  --font-headline: 'Space Grotesk', sans-serif;
+  --font-body: 'Manrope', sans-serif;
+  --font-label: 'Lexend', sans-serif;
+}
+
+body {
+  @apply bg-background text-on-background font-body selection:bg-secondary selection:text-on-secondary-fixed overflow-x-hidden;
+  background-image:
+    radial-gradient(circle at 15% 20%, rgba(0, 85, 255, 0.12), transparent 24%),
+    radial-gradient(circle at 85% 15%, rgba(202, 243, 0, 0.08), transparent 22%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 18%);
+  background-attachment: fixed;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+a,
+button {
+  @apply outline-none;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+summary:focus-visible {
+  box-shadow: 0 0 0 2px rgba(202, 243, 0, 0.9);
+  border-radius: 999px;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}

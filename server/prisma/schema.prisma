@@ -1,0 +1,108 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum OrderStatus {
+  pending
+  paid
+  shipped
+  cancelled
+}
+
+enum PaymentStatus {
+  pending
+  approved
+  rejected
+  cancelled
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Product {
+  id         String      @id @default(cuid())
+  name       String      @unique
+  category   Category    @relation(fields: [categoryId], references: [id])
+  categoryId String
+  price      Int
+  image      String
+  badge      String?
+  stock      Int         @default(0)
+  active     Boolean     @default(true)
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  orderItems OrderItem[]
+}
+
+model BlogPost {
+  id        String   @id @default(cuid())
+  title     String   @unique
+  category  String
+  date      String
+  image     String
+  excerpt   String
+  content   Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Court {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  location  String
+  address   String
+  phone     String
+  features  Json
+  image     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Order {
+  id              String       @id @default(cuid())
+  status          OrderStatus  @default(pending)
+  total           Int
+  currency        String       @default("ARS")
+  customerName    String
+  customerEmail   String
+  customerPhone   String
+  shippingAddress String
+  createdAt       DateTime     @default(now())
+  updatedAt       DateTime     @updatedAt
+  items           OrderItem[]
+  payments        Payment[]
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  order     Order   @relation(fields: [orderId], references: [id])
+  orderId   String
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+  quantity  Int
+  price     Int
+}
+
+model Payment {
+  id          String        @id @default(cuid())
+  order       Order         @relation(fields: [orderId], references: [id])
+  orderId     String
+  provider    String
+  providerRef String
+  status      PaymentStatus @default(pending)
+  amount      Int
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+}
+

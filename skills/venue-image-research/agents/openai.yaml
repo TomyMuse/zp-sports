@@ -1,0 +1,3 @@
+display_name: Venue Image Research
+short_description: Research courts and venues with confidence-rated images, maps, and contact data.
+default_prompt: Use this skill to research venues and collect trustworthy images, map links, addresses, phones, and source notes ranked by confidence.
